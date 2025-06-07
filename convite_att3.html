@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nosso Dia dos Namorados 💖</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    .card {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #e91e63;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin: 1rem 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 10px;
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.2s, background-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #d81b60;
+      transform: scale(1.05);
+    }
+
+    #carta {
+      margin-top: 1.5rem;
+      display: none;
+    }
+
+    .choice-buttons {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #btn-sim, #btn-nao {
+      padding: 25px 30px;
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    /* Remove hover scale do btn-sim pois vai abrir WhatsApp */
+    #btn-sim:hover {
+      background-color: #d81b60;
+      transform: scale(3.0);
+    }
+
+    .external-buttons {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .external-buttons .btn {
+      border: 2px solid white;
+    }
+
+    #mensagem-nao {
+      margin-top: 1rem;
+      font-style: italic;
+      color: #c2185b;
+      height: 1.5em;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Feliz Dia dos Namorados!</h1>
+    <p>Amor, você aceita ir ao Haru comigo? Prometo te fazer feliz para o resto de nossas vidas.❤️</p>
+    
+    <div class="choice-buttons">
+      <button id="btn-sim">Sim</button>
+      <button id="btn-nao">Não</button>
+    </div>
+    <div id="mensagem-nao"></div>
+
+    <div id="carta">
+      <p>Eu te amo e te admiro como a mulher foda que você é. Por isso tenho orgulho de ser seu namorado. Eu te amo, te busco às 19h😉</p>
+    </div>
+  </div>
+
+  <div class="external-buttons">
+    <a href="https://www.dguests.com.br/cardapio/haru" class="btn" target="_blank">Ver cardápio</a>
+    <a href="#carta" class="btn">Ler Cartinha</a>
+  </div>
+
+  <script>
+    // Mostrar/ocultar carta
+    const cartaBtn = document.querySelector('a[href="#carta"]');
+    const carta = document.getElementById('carta');
+
+    cartaBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      carta.style.display = carta.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // Botão "Não" – reduz e exibe mensagens
+    const btnNao = document.getElementById('btn-nao');
+    const msgNao = document.getElementById('mensagem-nao');
+    let scaleFactor = 1;
+    let cliqueContador = 0;
+
+    const mensagens = [
+      "Clique novamente...",
+      "Confirme o botão...",
+      "Não é uma opção 😜"
+    ];
+
+    btnNao.addEventListener('click', () => {
+      scaleFactor *= 0.5;
+      cliqueContador++;
+
+      btnNao.style.transform = `scale(${scaleFactor})`;
+
+      if (cliqueContador <= mensagens.length) {
+        msgNao.textContent = mensagens[cliqueContador - 1];
+      } else {
+        msgNao.textContent = mensagens[mensagens.length - 1];
+      }
+    });
+
+    // Botão "Sim" – redireciona para WhatsApp com mensagem
+    const btnSim = document.getElementById('btn-sim');
+    btnSim.addEventListener('click', () => {
+      const mensagem = encodeURIComponent("Oi amor, claro que eu aceito! Como recompensa por seu esforço vai receber um boquete!");
+      const numero = "5565981088929";
+      const url = numero 
+        ? `https://wa.me/${numero}?text=${mensagem}` 
+        : `https://wa.me/?text=${mensagem}`;
+      window.open(url, "_blank");
+    });
+  </script>
+</body>
+</html>
